@@ -6,8 +6,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/debugger" element={<Debugger />} />
+        {/* <Route path="/" element={<HomePage />} /> */}
+        <Route path="/" element={<Debugger />} />
       </Routes>
     </BrowserRouter>
   );

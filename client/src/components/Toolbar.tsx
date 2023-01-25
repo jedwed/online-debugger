@@ -1,13 +1,29 @@
 import { useContext } from "react";
+import axios from "axios";
+import { WrenchIcon } from "@heroicons/react/24/solid";
 import { DebuggerContext } from "context/DebuggerContext";
 
 function Toolbar() {
   const { code } = useContext(DebuggerContext);
   function handleCompile() {
-    console.log(code);
+    axios
+      .post("http://localhost:8000/compile", {
+        language: "c",
+        code,
+      })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
   }
 
-  return <button onClick={handleCompile}>Compile & Run</button>;
+  return (
+    <button
+      className="bg-blue-400 hover:bg-blue-500 active:bg-blue-600 text-white rounded px-2 py-2 inline-flex items-center"
+      onClick={handleCompile}
+    >
+      <WrenchIcon className="h-4 w-4" />
+      <span>Compile & Run</span>
+    </button>
+  );
 }
 
 export default Toolbar;

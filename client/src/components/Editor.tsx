@@ -14,6 +14,9 @@ function Editor() {
         mode="c_cpp"
         value={code}
         onChange={handleSetCode}
+        width="100%"
+        fontSize="14px"
+        // showPrintMargin={false}
       />
     </>
   );
