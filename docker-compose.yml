@@ -10,3 +10,13 @@ services:
       - ./client/src:/app/src
     container_name: client
     image: client
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server/src:/app/src
+    container_name: server
+    image: server

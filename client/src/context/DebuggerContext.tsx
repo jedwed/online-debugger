@@ -10,7 +10,7 @@ interface Props {
 }
 
 function DebuggerContextProvider({ children }: Props) {
-  const [code, setCode] = useState("int main");
+  const [code, setCode] = useState("");
   function handleSetCode(newCode: string) {
     setCode(newCode);
   }
