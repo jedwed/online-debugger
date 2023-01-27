@@ -10,7 +10,7 @@ function Editor() {
   return (
     <>
       <AceEditor
-        theme="dracula"
+        // theme="dracula"
         mode="c_cpp"
         value={code}
         onChange={handleSetCode}
