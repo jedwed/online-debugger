@@ -18,7 +18,8 @@ RUN . ~/.nvm/nvm.sh && nvm alias default $NODE_VERSION
 RUN . ~/.nvm/nvm.sh && nvm use default
 
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
-RUN node -v
+
+RUN npm install --global yarn
 
 WORKDIR /app
 
