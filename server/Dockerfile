@@ -20,12 +20,11 @@ RUN . ~/.nvm/nvm.sh && nvm use default
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN node -v
 
-RUN npm install yarn --global
-
 WORKDIR /app
 
 COPY package.json yarn.lock .env .
 RUN yarn install
+RUN yarn global add nodemon
 
 COPY . .
 
