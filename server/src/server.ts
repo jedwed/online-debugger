@@ -21,13 +21,13 @@ app.use(express.json());
 
 app.use("/compile", compileRoute);
 
-execPromise(`docker build -t test ${path.resolve(__dirname, "compiler")}`).then(
-  () => {
-    if (!fs.existsSync(codeDir)) {
-      fs.mkdirSync(codeDir);
-    }
-    app.listen(port, () => {
-      console.log(chalk.cyan(`Server listening at port ${port} 🚀`));
-    });
+execPromise(
+  `docker build -t compiler ${path.resolve(__dirname, "compiler")}`
+).then(() => {
+  if (!fs.existsSync(codeDir)) {
+    fs.mkdirSync(codeDir);
   }
-);
+  app.listen(port, () => {
+    console.log(chalk.cyan(`Server listening at port ${port} 🚀`));
+  });
+});
