@@ -12,7 +12,6 @@ async function compile(req: Request, res: Response) {
   if (!req.body.code) {
     return res.status(400).json({ error: "No code given" });
   }
-  // res.status(200).json({ message: "Received code", code: req.body.code });
   fs.writeFileSync(path.resolve(codeDir, "main.c"), req.body.code);
   try {
     const { stdout } = await execPromise(

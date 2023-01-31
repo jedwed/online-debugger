@@ -2,22 +2,7 @@ FROM ubuntu
 
 SHELL ["/bin/bash", "-c"]
 
-# RUN apt-get update && apt-get install docker.io -y
-
 # Install docker within docker for sandboxed code execution
-# RUN apt-get update && apt-get install -y curl \
-#     ca-certificates \
-#     gnupg \
-#     lsb-release
-#
-# RUN mkdir -p /etc/apt/keyrings
-# RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-#
-# RUN echo \
-#   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-#   $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-#
-# RUN apt-get update && apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 RUN apt-get update && apt-get install -y docker.io
 
 RUN apt-get update && apt-get install -y curl
@@ -39,7 +24,7 @@ RUN npm install yarn --global
 
 WORKDIR /app
 
-COPY package.json .
+COPY package.json yarn.lock .env .
 RUN yarn install
 
 COPY . .

@@ -5,9 +5,9 @@ import cors from "cors";
 import chalk from "chalk";
 import util from "util";
 import { exec } from "child_process";
+import * as dotenv from "dotenv";
 import compileRoute from "./routes/compileRoute";
 import { codeDir } from "./config/paths";
-import * as dotenv from "dotenv";
 
 dotenv.config();
 
@@ -21,12 +21,13 @@ app.use(express.json());
 
 app.use("/compile", compileRoute);
 
-app.listen(port, async () => {
-  await execPromise(
-    `docker build -t test ${path.resolve(__dirname, "compiler")}`
-  );
-  if (!fs.existsSync(codeDir)) {
-    fs.mkdirSync(codeDir);
+execPromise(`docker build -t test ${path.resolve(__dirname, "compiler")}`).then(
+  () => {
+    if (!fs.existsSync(codeDir)) {
+      fs.mkdirSync(codeDir);
+    }
+    app.listen(port, () => {
+      console.log(chalk.cyan(`Server listening at port ${port} 🚀`));
+    });
   }
-  console.log(chalk.cyan(`Server listening at port ${port} 🚀`));
-});
+);
