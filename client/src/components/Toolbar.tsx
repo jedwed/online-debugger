@@ -4,14 +4,14 @@ import { WrenchIcon, BugAntIcon } from "@heroicons/react/24/solid";
 import { DebuggerContext } from "context/DebuggerContext";
 
 function Toolbar() {
-  const { code } = useContext(DebuggerContext);
+  const { code, handleSetConsoleOutput } = useContext(DebuggerContext);
   function handleCompile() {
     axios
       .post("http://localhost:8000/compile", {
         language: "c",
         code,
       })
-      .then((response) => console.log(response.data))
+      .then((response) => handleSetConsoleOutput(response.data.stdout))
       .catch((error) => console.log(error));
   }
 
