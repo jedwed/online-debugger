@@ -14,7 +14,7 @@ function Editor() {
       value={code}
       onChange={handleSetCode}
       width="100%"
-      fontSize="14px"
+      fontSize="15px"
       // showPrintMargin={false}
     />
   );

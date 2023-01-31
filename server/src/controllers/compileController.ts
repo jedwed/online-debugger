@@ -14,11 +14,15 @@ async function compile(req: Request, res: Response) {
   }
   // res.status(200).json({ message: "Received code", code: req.body.code });
   fs.writeFileSync(path.resolve(codeDir, "main.c"), req.body.code);
-  const { stdout } = await execPromise(
-    `docker run --rm --mount type=bind,src=${hostCodeDir},dst=/program -w /program test`
-  );
+  try {
+    const { stdout } = await execPromise(
+      `docker run --rm --mount type=bind,src=${hostCodeDir},dst=/program -w /program test`
+    );
 
-  res.status(200).json({ stdout });
+    res.status(200).json({ stdout });
+  } catch (error) {
+    res.status(400).json(error);
+  }
 }
 
 export { compile };

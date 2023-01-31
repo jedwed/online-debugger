@@ -4,7 +4,8 @@ import { WrenchIcon, BugAntIcon } from "@heroicons/react/24/solid";
 import { DebuggerContext } from "context/DebuggerContext";
 
 function Toolbar() {
-  const { code, handleSetConsoleOutput } = useContext(DebuggerContext);
+  const { code, handleSetConsoleOutput, handleSetError } =
+    useContext(DebuggerContext);
   function handleCompile() {
     axios
       .post("http://localhost:8000/compile", {
@@ -12,7 +13,10 @@ function Toolbar() {
         code,
       })
       .then((response) => handleSetConsoleOutput(response.data.stdout))
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        handleSetConsoleOutput(error.response.data.stderr);
+        handleSetError(true);
+      });
   }
 
   return (
