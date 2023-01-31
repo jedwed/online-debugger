@@ -8,10 +8,16 @@ import Toolbar from "components/Toolbar";
 function Debugger() {
   return (
     <DebuggerContextProvider>
-      <Navbar />
-      <Toolbar />
-      <Editor />
-      <Console />
+      <div className="flex flex-col h-screen">
+        <div>
+          <Navbar />
+          <Toolbar />
+        </div>
+        <div className="flex-grow">
+          <Editor />
+          <Console />
+        </div>
+      </div>
     </DebuggerContextProvider>
   );
 }

@@ -20,7 +20,7 @@ function Toolbar() {
   }
 
   return (
-    <div className="flex h-12">
+    <div className="flex h-12 border-b border-gray-200">
       <button
         className="bg-blue-400 hover:bg-blue-500 active:bg-blue-600 text-white rounded px-2 py-2 mx-2 my-2 inline-flex items-center"
         onClick={handleCompile}
