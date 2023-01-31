@@ -7,6 +7,9 @@ import util from "util";
 import { exec } from "child_process";
 import compileRoute from "./routes/compileRoute";
 import { codeDir } from "./config/paths";
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const execPromise = util.promisify(exec);
 

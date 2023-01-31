@@ -17,8 +17,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
       - ./server/src:/app/src
+      - ./server/code:/app/code
+      - /var/run/docker.sock:/var/run/docker.sock
     container_name: server
     image: server
     stdin_open: true
