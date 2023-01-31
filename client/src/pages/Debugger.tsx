@@ -1,4 +1,3 @@
-import { createContext, useState } from "react";
 import Navbar from "components/Navbar";
 import Editor from "components/Editor";
 import Console from "components/Console";
@@ -13,7 +12,7 @@ function Debugger() {
           <Navbar />
           <Toolbar />
         </div>
-        <div className="flex-grow">
+        <div className="grow overflow-hidden">
           <Editor />
           <Console />
         </div>

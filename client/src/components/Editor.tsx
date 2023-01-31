@@ -8,16 +8,19 @@ function Editor() {
   const { code, handleSetCode } = useContext(DebuggerContext);
 
   return (
-    <AceEditor
-      // theme="dracula"
-      mode="c_cpp"
-      value={code}
-      onChange={handleSetCode}
-      height="65%"
-      width="100%"
-      fontSize="15px"
-      // showPrintMargin={false}
-    />
+    <div className="h-[65%]">
+      <AceEditor
+        // theme="dracula"
+        mode="c_cpp"
+        value={code}
+        onChange={handleSetCode}
+        height="100%"
+        // height="65%"
+        width="100%"
+        fontSize="15px"
+        // showPrintMargin={false}
+      />
+    </div>
   );
 }
 
