@@ -2,8 +2,9 @@ FROM ubuntu
 
 SHELL ["/bin/bash", "-c"]
 
-# Install docker within docker for sandboxed code execution
-RUN apt-get update && apt-get install -y docker.io
+# Install gcc and gdb for C compiling and debugging
+RUN apt-get update && \
+    apt-get install -y build-essential gdb
 
 RUN apt-get update && apt-get install -y curl
 
@@ -23,7 +24,7 @@ RUN npm install --global yarn
 
 WORKDIR /app
 
-COPY package.json yarn.lock .env .
+COPY package.json yarn.lock .
 RUN yarn install
 RUN yarn global add nodemon
 
