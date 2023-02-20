@@ -27,7 +27,7 @@ async function compile(req: Request, res: Response) {
     // clearTimeout(timer);
     res.status(200).json({ stdout });
   } catch (error) {
-    execPromise(`cd ${codeDir} && rm ${newFile}.c ${newFile}`);
+    execPromise(`cd ${codeDir} && rm -f ${newFile}.c ${newFile}`);
     res.status(400).json(error);
   }
 }
