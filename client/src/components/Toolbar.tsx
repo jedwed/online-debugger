@@ -11,7 +11,7 @@ function Toolbar() {
   function handleCompile() {
     setLoading(true);
     axios
-      .post('http://localhost:8000/compile', {
+      .post('https://online-debugger-api.onrender.com/compile', {
         language: 'c',
         code,
       })
