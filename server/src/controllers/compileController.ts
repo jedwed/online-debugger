@@ -4,7 +4,7 @@ import util from "util";
 import path from "path";
 import { Request, Response } from "express";
 import { exec } from "child_process";
-import { codeDir, hostCodeDir } from "../config/paths";
+import { codeDir } from "../config/paths";
 
 const execPromise = util.promisify(exec);
 
@@ -12,20 +12,22 @@ async function compile(req: Request, res: Response) {
   if (!req.body.code) {
     return res.status(400).json({ error: "No code given" });
   }
-  fs.writeFileSync(path.resolve(codeDir, "main.c"), req.body.code);
+  const newFile = uuidv4();
+  fs.writeFileSync(path.resolve(codeDir, `${newFile}.c`), req.body.code);
 
-  const container = uuidv4();
-  const timer = setTimeout(() => {
-    execPromise(`docker kill ${container}`);
-  }, 5000);
+  // const timer = setTimeout(() => {
+  //   execPromise(`docker kill ${container}`);
+  // }, 5000);
 
   try {
     const { stdout } = await execPromise(
-      `docker run --name ${container} -m 256m --rm --mount type=bind,src=${hostCodeDir},dst=/program -w /program compiler`
+      `cd ${codeDir} && gcc -ggdb ${newFile}.c -o ${newFile} && ./${newFile}`
     );
-    clearTimeout(timer);
+    execPromise(`cd ${codeDir} && rm ${newFile}.c ${newFile}`);
+    // clearTimeout(timer);
     res.status(200).json({ stdout });
   } catch (error) {
+    execPromise(`cd ${codeDir} && rm -f ${newFile}.c ${newFile}`);
     res.status(400).json(error);
   }
 }
