@@ -26,7 +26,7 @@ WORKDIR /app
 
 COPY package.json yarn.lock .
 RUN yarn install
-RUN yarn global add nodemon
+# RUN yarn global add nodemon
 
 COPY . .
 
