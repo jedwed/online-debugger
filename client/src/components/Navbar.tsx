@@ -1,4 +1,4 @@
-import { BugAntIcon } from "@heroicons/react/24/solid";
+import { BugAntIcon } from '@heroicons/react/24/solid';
 
 function Navbar() {
   return (

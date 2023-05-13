@@ -1,9 +1,9 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode } from 'react';
 
 export const DebuggerContext = createContext({
-  code: "",
+  code: '',
   handleSetCode: (newCode: string) => {},
-  consoleOutput: "",
+  consoleOutput: '',
   handleSetConsoleOutput: (newConsoleOutput: string) => {},
   error: false,
   handleSetError: (isError: boolean) => {},
@@ -14,10 +14,10 @@ interface Props {
 }
 
 function DebuggerContextProvider({ children }: Props) {
-  const [code, setCode] = useState(localStorage.getItem("storedCode") || "");
+  const [code, setCode] = useState(localStorage.getItem('storedCode') || '');
   function handleSetCode(newCode: string) {
     setCode(newCode);
-    localStorage.setItem("storedCode", newCode);
+    localStorage.setItem('storedCode', newCode);
   }
 
   const [error, setError] = useState(false);
@@ -25,7 +25,7 @@ function DebuggerContextProvider({ children }: Props) {
     setError(isError);
   }
 
-  const [consoleOutput, setConsoleOutput] = useState("");
+  const [consoleOutput, setConsoleOutput] = useState('');
   function handleSetConsoleOutput(newConsoleOutput: string) {
     console.log(newConsoleOutput);
     setError(false);
