@@ -32,4 +32,7 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["yarn", "dev"]
+RUN yarn tsc
+CMD ["yarn", "start"]
+
+# CMD ["yarn", "dev"]
