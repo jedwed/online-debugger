@@ -34,6 +34,7 @@ function Toolbar() {
             ? 'bg-blue-200 cursor-not-allowed'
             : 'bg-blue-400 hover:bg-blue-500 active:bg-blue-600 '
         }`}
+        type="button"
         disabled={loading}
         onClick={handleCompile}
       >
@@ -47,6 +48,7 @@ function Toolbar() {
             ? 'bg-blue-200 cursor-not-allowed'
             : 'bg-blue-400 hover:bg-blue-500 active:bg-blue-600 '
         }`}
+        type="button"
         disabled={loading}
         onClick={handleCompile}
       >

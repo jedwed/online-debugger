@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from 'react';
+import { createContext, useState, ReactNode, useMemo } from 'react';
 
 export interface DebuggerContextType {
   code: string;
@@ -8,14 +8,6 @@ export interface DebuggerContextType {
   error: boolean;
   handleSetError: (isError: boolean) => void;
 }
-// export const DebuggerContext = createContext({
-//   code: '',
-//   handleSetCode: (newCode: string) => {},
-//   consoleOutput: '',
-//   handleSetConsoleOutput: (newConsoleOutput: string) => {},
-//   error: false,
-//   handleSetError: (isError: boolean) => {},
-// });
 export const DebuggerContext = createContext<DebuggerContextType | null>(null);
 
 interface Props {
@@ -36,22 +28,24 @@ function DebuggerContextProvider({ children }: Props) {
 
   const [consoleOutput, setConsoleOutput] = useState('');
   function handleSetConsoleOutput(newConsoleOutput: string) {
-    console.log(newConsoleOutput);
     setError(false);
     setConsoleOutput(newConsoleOutput);
   }
 
+  const debuggerContextProviderValue = useMemo(
+    () => ({
+      code,
+      handleSetCode,
+      consoleOutput,
+      handleSetConsoleOutput,
+      error,
+      handleSetError,
+    }),
+    [code, consoleOutput, error]
+  );
+
   return (
-    <DebuggerContext.Provider
-      value={{
-        code,
-        handleSetCode,
-        consoleOutput,
-        handleSetConsoleOutput,
-        error,
-        handleSetError,
-      }}
-    >
+    <DebuggerContext.Provider value={debuggerContextProviderValue}>
       {children}
     </DebuggerContext.Provider>
   );
