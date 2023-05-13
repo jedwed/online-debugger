@@ -11,7 +11,7 @@ function Toolbar() {
   function handleCompile() {
     setLoading(true);
     axios
-      .post('https://online-debugger-api.onrender.com/compile', {
+      .post(import.meta.env.VITE_API_URL + '/compile', {
         language: 'c',
         code,
       })
