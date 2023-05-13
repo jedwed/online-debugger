@@ -1,13 +1,22 @@
 import { createContext, useState, ReactNode } from 'react';
 
-export const DebuggerContext = createContext({
-  code: '',
-  handleSetCode: (newCode: string) => {},
-  consoleOutput: '',
-  handleSetConsoleOutput: (newConsoleOutput: string) => {},
-  error: false,
-  handleSetError: (isError: boolean) => {},
-});
+export interface DebuggerContextType {
+  code: string;
+  handleSetCode: (newCode: string) => void;
+  consoleOutput: string;
+  handleSetConsoleOutput: (newConsoleOutput: string) => void;
+  error: boolean;
+  handleSetError: (isError: boolean) => void;
+}
+// export const DebuggerContext = createContext({
+//   code: '',
+//   handleSetCode: (newCode: string) => {},
+//   consoleOutput: '',
+//   handleSetConsoleOutput: (newConsoleOutput: string) => {},
+//   error: false,
+//   handleSetError: (isError: boolean) => {},
+// });
+export const DebuggerContext = createContext<DebuggerContextType | null>(null);
 
 interface Props {
   children: ReactNode;

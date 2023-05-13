@@ -1,11 +1,12 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import { WrenchIcon, BugAntIcon } from '@heroicons/react/24/solid';
-import { DebuggerContext } from 'context/DebuggerContext';
+import { DebuggerContext, DebuggerContextType } from 'context/DebuggerContext';
 
 function Toolbar() {
-  const { code, handleSetConsoleOutput, handleSetError } =
-    useContext(DebuggerContext);
+  const { code, handleSetConsoleOutput, handleSetError } = useContext(
+    DebuggerContext
+  ) as DebuggerContextType;
   const [loading, setLoading] = useState(false);
   function handleCompile() {
     setLoading(true);
