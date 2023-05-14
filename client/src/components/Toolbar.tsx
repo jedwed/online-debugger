@@ -1,17 +1,16 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import { WrenchIcon, BugAntIcon } from '@heroicons/react/24/solid';
-import { DebuggerContext, DebuggerContextType } from 'context/DebuggerContext';
+import { DebuggerContext } from 'context/DebuggerContext';
 
 function Toolbar() {
-  const { code, handleSetConsoleOutput, handleSetError } = useContext(
-    DebuggerContext
-  ) as DebuggerContextType;
+  const { code, handleSetConsoleOutput, handleSetError } =
+    useContext(DebuggerContext);
   const [loading, setLoading] = useState(false);
   function handleCompile() {
     setLoading(true);
     axios
-      .post(import.meta.env.VITE_API_URL + '/compile', {
+      .post(`${import.meta.env.VITE_API_URL}/compile`, {
         language: 'c',
         code,
       })

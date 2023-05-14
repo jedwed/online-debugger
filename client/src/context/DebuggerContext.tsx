@@ -1,6 +1,6 @@
 import { createContext, useState, ReactNode, useMemo } from 'react';
 
-export interface DebuggerContextType {
+interface DebuggerContextType {
   code: string;
   handleSetCode: (newCode: string) => void;
   consoleOutput: string;
@@ -8,7 +8,15 @@ export interface DebuggerContextType {
   error: boolean;
   handleSetError: (isError: boolean) => void;
 }
-export const DebuggerContext = createContext<DebuggerContextType | null>(null);
+
+export const DebuggerContext = createContext<DebuggerContextType>({
+  code: '',
+  handleSetCode: () => {},
+  consoleOutput: '',
+  handleSetConsoleOutput: () => {},
+  error: false,
+  handleSetError: () => {},
+});
 
 interface Props {
   children: ReactNode;
