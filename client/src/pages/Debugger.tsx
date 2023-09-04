@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import Navbar from 'components/Navbar';
 import Editor from 'components/Editor';
@@ -11,11 +11,11 @@ function Debugger() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const handleSetCode = useCallback((newCode: string) => {
+  const handleSetCode = (newCode: string) => {
     setCode(newCode);
-  }, []);
+  };
 
-  const handleCompile = useCallback(() => {
+  const handleCompile = () => {
     setLoading(true);
     axios
       .post(
@@ -38,7 +38,7 @@ function Debugger() {
         setError(true);
         setLoading(false);
       });
-  }, [code]);
+  };
 
   return (
     <div className="flex flex-col h-screen">
