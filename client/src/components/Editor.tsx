@@ -1,12 +1,14 @@
-import { useContext } from 'react';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/theme-dracula';
 import 'ace-builds/src-noconflict/mode-c_cpp';
-import { DebuggerContext } from 'context/DebuggerContext';
 
-function Editor() {
-  const { code, handleSetCode } = useContext(DebuggerContext);
-
+function Editor({
+  code,
+  handleSetCode,
+}: {
+  code: string;
+  handleSetCode: (newCode: string) => void;
+}) {
   return (
     <div className="h-[65%]">
       <AceEditor

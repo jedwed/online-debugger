@@ -1,30 +1,12 @@
-import { useState, useContext } from 'react';
-import axios from 'axios';
 import { WrenchIcon, BugAntIcon } from '@heroicons/react/24/solid';
-import { DebuggerContext } from 'context/DebuggerContext';
 
-function Toolbar() {
-  const { code, handleSetConsoleOutput, handleSetError } =
-    useContext(DebuggerContext);
-  const [loading, setLoading] = useState(false);
-  function handleCompile() {
-    setLoading(true);
-    axios
-      .post(`${import.meta.env.VITE_API_URL}/compile`, {
-        language: 'c',
-        code,
-      })
-      .then((response) => {
-        setLoading(false);
-        handleSetConsoleOutput(response.data.stdout);
-      })
-      .catch((error) => {
-        handleSetConsoleOutput(error.response.data.stderr);
-        handleSetError(true);
-        setLoading(false);
-      });
-  }
-
+function Toolbar({
+  handleCompile,
+  loading,
+}: {
+  handleCompile: () => void;
+  loading: boolean;
+}) {
   return (
     <div className="flex h-12 border-b border-gray-200">
       <button
