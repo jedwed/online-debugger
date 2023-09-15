@@ -29,8 +29,10 @@ function Debugger() {
       .then((response) => {
         setLoading(false);
         setConsoleOutput(response.data.stdout);
+        console.log(response.data.debug)
       })
       .catch((err) => {
+        console.log(err)
         setConsoleOutput(
           err?.response?.data?.stderr ||
             'Response not received from server or server timed out'

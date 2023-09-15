@@ -33,7 +33,7 @@ def debug():
                 "args": get_variables(gdb.execute("info args", to_string=True)),
             }
         )
-        gdb.execute("next", to_string=True)
+        gdb.execute("next")
     return res
 
 

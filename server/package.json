@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node .",
     "tsc": "tsc",
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon --ignore code/ src/server.ts",
     "lint": "eslint --ext .js,.ts src/",
     "lint:fix": "eslint --fix --ext .js,.ts src/"
   },
