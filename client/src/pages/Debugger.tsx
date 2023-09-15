@@ -6,13 +6,14 @@ import Console from 'components/Console';
 import Toolbar from 'components/Toolbar';
 
 function Debugger() {
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(localStorage.getItem('storedCode') || '');
   const [consoleOutput, setConsoleOutput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const handleSetCode = (newCode: string) => {
     setCode(newCode);
+    localStorage.setItem('storedCode', newCode);
   };
 
   const handleCompile = () => {
@@ -29,10 +30,10 @@ function Debugger() {
       .then((response) => {
         setLoading(false);
         setConsoleOutput(response.data.stdout);
-        console.log(response.data.debug)
+        console.log(response.data.debug);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         setConsoleOutput(
           err?.response?.data?.stderr ||
             'Response not received from server or server timed out'
