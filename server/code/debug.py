@@ -1,6 +1,19 @@
+from typing import TypedDict, List, Optional
 import gdb
 import json
 import re
+
+
+class SymbolInfo(TypedDict):
+    name: str
+    type: str
+    value: str
+
+
+class FrameInfo(TypedDict):
+    line: int
+    args: List[SymbolInfo]
+    locals: List[SymbolInfo]
 
 
 def is_program_running():
@@ -18,23 +31,30 @@ def get_line_number():
     return line
 
 
-def get_variables(info):
-    return info.rstrip().split("\n") if not info is None else []
+def get_frame_info():
+    frame_info: FrameInfo = {"line": get_line_number(), "args": [], "locals": []}
+    frame = gdb.selected_frame()
+    for symbol in frame.block():
+        symbol_info: SymbolInfo = {
+            "name": symbol.name,
+            "type": str(symbol.type),
+            "value": symbol.value(frame).format_string(),
+        }
+        if symbol.is_argument:
+            frame_info["args"].append(symbol_info)
+        elif symbol.is_variable:
+            frame_info["locals"].append(symbol_info)
+
+    return frame_info
 
 
 def debug():
-    res = []
+    states = []
     gdb.execute("start")
     while is_program_running():
-        res.append(
-            {
-                "line": get_line_number(),
-                "locals": get_variables(gdb.execute("info locals", to_string=True)),
-                "args": get_variables(gdb.execute("info args", to_string=True)),
-            }
-        )
-        gdb.execute("next")
-    return res
+        states.append(get_frame_info())
+        gdb.execute("next", to_string=True)
+    return states
 
 
 def main():
