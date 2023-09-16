@@ -1,14 +1,23 @@
-import AceEditor from 'react-ace';
+import AceEditor, { IMarker } from 'react-ace';
 import 'ace-builds/src-noconflict/theme-dracula';
 import 'ace-builds/src-noconflict/mode-c_cpp';
 
 function Editor({
   code,
   handleSetCode,
+  currLine,
 }: {
   code: string;
   handleSetCode: (newCode: string) => void;
+  currLine: number;
 }) {
+  const annotations = [
+    {
+      row: currLine - 1, // must be 0 based
+      text: 'Current line',
+      type: 'info',
+    },
+  ];
   return (
     <div className="h-[65%]">
       <AceEditor
@@ -20,7 +29,9 @@ function Editor({
         // height="65%"
         width="100%"
         fontSize="15px"
-        // showPrintMargin={false}
+        showPrintMargin={false}
+        // markers={markers}
+        annotations={annotations}
       />
     </div>
   );

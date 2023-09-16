@@ -10,7 +10,7 @@ function Toolbar({
   return (
     <div className="flex h-12 border-b border-gray-200">
       <button
-        className={`text-white rounded px-2 py-2 mx-2 my-2 inline-flex items-center ${
+        className={`text-white rounded p-2 m-2 inline-flex items-center ${
           loading
             ? 'bg-blue-200 cursor-not-allowed'
             : 'bg-blue-400 hover:bg-blue-500 active:bg-blue-600 '
@@ -24,7 +24,7 @@ function Toolbar({
       </button>
 
       <button
-        className={`text-white rounded px-2 py-2 mx-2 my-2 inline-flex items-center ${
+        className={`text-white rounded p-2 m-2 inline-flex items-center ${
           loading
             ? 'bg-blue-200 cursor-not-allowed'
             : 'bg-blue-400 hover:bg-blue-500 active:bg-blue-600 '
