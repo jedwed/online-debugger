@@ -34,16 +34,23 @@ def get_line_number():
 def get_frame_info():
     frame_info: FrameInfo = {"line": get_line_number(), "args": [], "locals": []}
     frame = gdb.selected_frame()
-    for symbol in frame.block():
-        symbol_info: SymbolInfo = {
-            "name": symbol.name,
-            "type": str(symbol.type),
-            "value": symbol.value(frame).format_string(),
-        }
-        if symbol.is_argument:
-            frame_info["args"].append(symbol_info)
-        elif symbol.is_variable:
-            frame_info["locals"].append(symbol_info)
+    block = frame.block()
+    while block and not block.is_static and not block.is_global:
+        for symbol in block:
+            if any(arg["name"] == symbol.name for arg in frame_info["args"]) or any(
+                local["name"] == symbol.name for local in frame_info["locals"]
+            ):
+                continue
+            symbol_info: SymbolInfo = {
+                "name": symbol.name,
+                "type": str(symbol.type),
+                "value": symbol.value(frame).format_string(),
+            }
+            if symbol.is_argument:
+                frame_info["args"].append(symbol_info)
+            elif symbol.is_variable:
+                frame_info["locals"].append(symbol_info)
+        block = block.superblock
 
     return frame_info
 
